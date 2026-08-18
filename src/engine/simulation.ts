@@ -42,31 +42,26 @@ export function dayType(d:string,holidays:Set<string>){
 }
 
 function supportHC(p:Depositor,checkouts:number){
+  if(checkouts<=0) return 0
   const res=p.tipo_colmeia==='Móvel'?0:p.pessoas_ressuprindo
   const supports=p.pessoas_separando+p.pessoas_embalando+p.pessoas_embalagem_caixa+p.pessoas_roteirizando+res
   return p.dimensionamento_apoios==='Por checkout'?supports*checkouts:supports
 }
-function checkoutHC(p:Depositor,checkouts:number){ return checkouts*p.pessoas_por_checkout }
-function totalHC(p:Depositor,checkouts:number){ return Math.min(p.hc_maximo,checkoutHC(p,checkouts)+supportHC(p,checkouts)) }
+function checkoutHC(p:Depositor,checkouts:number){ return Math.max(0,checkouts)*Math.max(0,p.pessoas_por_checkout) }
+function totalHC(p:Depositor,checkouts:number){ return checkoutHC(p,checkouts)+supportHC(p,checkouts) }
 
-function maxCheckoutsByHC(p:Depositor){
-  if(p.pessoas_por_checkout<=0 && p.dimensionamento_apoios!=='Por checkout') return p.checkouts_maximos
-  if(p.dimensionamento_apoios==='Por checkout'){
-    const res=p.tipo_colmeia==='Móvel'?0:p.pessoas_ressuprindo
-    const per=p.pessoas_por_checkout+p.pessoas_separando+p.pessoas_embalando+p.pessoas_embalagem_caixa+p.pessoas_roteirizando+res
-    return per>0?Math.max(0,Math.floor(p.hc_maximo/per)):p.checkouts_maximos
-  }
-  const fixed=supportHC(p,1)
-  return p.pessoas_por_checkout>0?Math.max(0,Math.floor((p.hc_maximo-fixed)/p.pessoas_por_checkout)):p.checkouts_maximos
+function configuredMax(tipo:string,p:Depositor){
+  return tipo==='Sábado'||tipo==='Domingo'||tipo==='Feriado' ? p.checkouts_maximos_fim_semana : p.checkouts_maximos
 }
-function clampCheckouts(p:Depositor,wanted:number,configuredMax:number){ return Math.max(0,Math.min(wanted,configuredMax,maxCheckoutsByHC(p))) }
+function clampCheckouts(wanted:number,configuredMax:number){
+  return Math.max(0,Math.min(Math.ceil(wanted),Math.max(0,configuredMax)))
+}
 
 function baseScenario(need:number,scheduled:boolean,tipo:string,p:Depositor){
   if(need<=0) return {checkouts:0,capacity:0,turns:1,extraHours:0,action:'Base / sem ação'}
   if(!scheduled) return {checkouts:0,capacity:0,turns:1,extraHours:0,action:'Base / sem operação'}
-  const min=tipo==='Dia útil'?p.checkouts_minimos_dia_util:1
-  const wanted=Math.max(min,Math.ceil(need/Math.max(p.capacidade_checkout_dia,1)))
-  const checkouts=clampCheckouts(p,wanted,p.checkouts_maximos)
+  const max=configuredMax(tipo,p)
+  const checkouts=clampCheckouts(p.checkouts_atuais,max)
   return {checkouts,capacity:checkouts*p.capacidade_checkout_dia,turns:1,extraHours:0,action:'Base / sem ação'}
 }
 
@@ -74,22 +69,33 @@ function suggestedScenario(need:number,scheduled:boolean,tipo:string,p:Depositor
   if(!scheduled){
     if(need<=0) return {...base,suggested:false}
     const weekend=tipo!=='Dia útil'
-    const maxConfigured=weekend?p.checkouts_maximos_fim_semana:p.checkouts_maximos
+    const maxConfigured=configuredMax(tipo,p)
     const hours=tipo==='Sábado'?p.horas_operacao_extra_sabado:tipo==='Domingo'||tipo==='Feriado'?p.horas_operacao_extra_dom_feriado:p.horas_trabalhadas_dia
-    const capPer=(p.capacidade_checkout_dia/Math.max(p.horas_trabalhadas_dia,1))*hours
-    const wanted=Math.max(1,Math.ceil(need/Math.max(capPer,1)))
-    const checkouts=clampCheckouts(p,wanted,maxConfigured)
+    const capPer=(p.capacidade_checkout_dia/Math.max(p.horas_trabalhadas_dia,1))*Math.max(hours,0)
+    const wanted=Math.ceil(need/Math.max(capPer,1))
+    const checkouts=clampCheckouts(wanted,maxConfigured)
     const action=weekend?'Operar no fim de semana / feriado':'Operar fora da escala'
-    return {checkouts,capacity:checkouts*capPer,turns:1,extraHours:hours,action,suggested:true}
+    return {checkouts,capacity:checkouts*capPer,turns:1,extraHours:Math.max(hours,0),action,suggested:true}
   }
+
   if(need<=base.capacity) return {...base,suggested:false}
+
+  const maxConfigured=configuredMax(tipo,p)
+  const normalMaxCapacity=maxConfigured*p.capacidade_checkout_dia
+  if(need<=normalMaxCapacity){
+    const wanted=Math.ceil(need/Math.max(p.capacidade_checkout_dia,1))
+    const checkouts=clampCheckouts(Math.max(base.checkouts,wanted),maxConfigured)
+    return {checkouts,capacity:checkouts*p.capacidade_checkout_dia,turns:1,extraHours:0,action:'Aumentar checkouts',suggested:true}
+  }
+
   if(tipo==='Dia útil'&&p.horas_extra_max_dia_util>0){
     const hours=p.horas_trabalhadas_dia+p.horas_extra_max_dia_util
     const capPer=(p.capacidade_checkout_dia/Math.max(p.horas_trabalhadas_dia,1))*hours
-    const wanted=Math.max(p.checkouts_minimos_dia_util,Math.ceil(need/Math.max(capPer,1)))
-    const checkouts=clampCheckouts(p,wanted,p.checkouts_maximos)
+    const wanted=Math.ceil(need/Math.max(capPer,1))
+    const checkouts=clampCheckouts(Math.max(base.checkouts,wanted),maxConfigured)
     return {checkouts,capacity:checkouts*capPer,turns:1,extraHours:p.horas_extra_max_dia_util,action:`Atuar com Mão de Obra terceira + ${p.horas_extra_max_dia_util}hrs`,suggested:true}
   }
+
   return {...base,suggested:false}
 }
 
@@ -118,7 +124,7 @@ export function simulate(rows:ForecastRow[],p:Depositor,holidays=new Set<string>
     const hcApoio=supportHC(p,applied.checkouts)
     const hcTotal=totalHC(p,applied.checkouts)
     const tarifaAplicada=tariffFor(applied.action,tipo,tariffs)
-    const custoAcao=applied.action.startsWith('Base /')?0:hcTotal*applied.extraHours*tarifaAplicada
+    const custoAcao=applied.action.startsWith('Base /')||applied.action==='Aumentar checkouts'?0:hcTotal*applied.extraHours*tarifaAplicada
     const result:DayResult={
       ...r,tipoDia:tipo,dentroEscala:scheduled,backlogAnterior:Math.round(backlog),producaoNecessaria:Math.round(need),
       capacidadeBase:Math.round(base.capacity),checkoutsBase:base.checkouts,acaoSugerida:hasSuggestion?suggested.action:'Base / sem ação',
