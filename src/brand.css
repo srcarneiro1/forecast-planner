@@ -35,6 +35,9 @@ body{font-family:'Roboto',Arial,sans-serif;color:var(--text)}
 .sidebar-nav button.active::before{content:'';position:absolute;left:0;top:7px;bottom:7px;width:3px;border-radius:2px;background:var(--brand-red)}
 .sidebar-nav button.active .material-icon{color:#fff}
 .nav-divider,.user-card{border-color:rgba(255,255,255,.13)}
+.nav-divider{background:rgba(255,255,255,.13)}
+.user-avatar{background:#5b5c67;color:#fff}
+.sidebar-collapsed .collapse-button{background:#3f404a;border-color:#5b5c67}
 .topbar{background:#fff;border-color:var(--line)}
 main{max-width:1540px}
 .page-header h1{color:var(--brand-gray)}
@@ -51,11 +54,13 @@ main{max-width:1540px}
 .table-panel{border-radius:10px}
 th{background:#f1f2f4;color:var(--brand-gray);font-weight:700}
 tbody tr:hover{background:#fafafb}
-tbody tr.row-attention{background:#fff9f1}
-.backlog-value{color:var(--brand-red)}
+tbody tr.row-attention{background:#fff9f1!important}
+.backlog-value{color:var(--warning)!important}
+.text-warning,.plain-status.warning,.kpi-strip .kpi-warning strong{color:var(--warning)!important}
+.status-indicator.alert{background:var(--warning)!important}
 .decision-status.accepted{color:var(--success);background:#edf6f0}
 .decision-status.rejected{color:#a60a12;background:#fdecee}
-.decision-status.pending{color:#8a6600;background:#fff7db}
+.decision-status.pending{color:#8a6600!important;background:#fff7db!important}
 .decision-btn.selected{border-color:var(--brand-gray);color:var(--brand-gray)}
 .decision-btn.reject.selected{border-color:var(--brand-red);color:var(--brand-red)}
 .login-page{background:#f6f7f8}
@@ -65,7 +70,7 @@ tbody tr.row-attention{background:#fff9f1}
 .login-brand>div b,.login-brand>div small{display:none}
 .login-card.standalone{border-top:3px solid var(--brand-red)}
 .login-card h1{color:var(--brand-gray)}
-.login-form input:focus,.form-grid input:focus,.form-grid select:focus,.select-wrap select:focus{border-color:var(--brand-gray);box-shadow:0 0 0 2px rgba(73,74,86,.10)}
+.login-form input:focus,.form-grid input:focus,.form-grid select:focus,.select-wrap select:focus{border-color:var(--brand-gray)!important;box-shadow:0 0 0 2px rgba(73,74,86,.10)!important}
 .progress-item.current>span{border-color:var(--brand-red);color:var(--brand-red);background:#fdecee}
 .dropzone:hover{border-color:#9da0a6;background:#f8f8f9}
 .profile-chip{border-color:var(--line)}
