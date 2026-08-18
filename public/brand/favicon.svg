@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Unilog">
+  <rect width="64" height="64" rx="14" fill="#494A56"/>
+  <path d="M14 20h28c4.5 0 8 3.5 8 8v8c0 4.5-3.5 8-8 8H24c-6.6 0-12-5.4-12-12 0-4.9 3-9.2 7.3-11.1A13 13 0 0 1 24 20h-10z" fill="#DB0812"/>
+  <path d="M21 29.5h4v7h4.5v3H21v-10zm10 0h3.5l2.8 4.4 2.8-4.4H44v10h-3.7v-5l-3 4.5-3-4.5v5H31v-10z" fill="#fff"/>
+  <circle cx="23" cy="46" r="3" fill="#fff"/>
+  <circle cx="42" cy="46" r="3" fill="#fff"/>
+</svg>
