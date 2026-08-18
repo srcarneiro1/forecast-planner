@@ -1,24 +1,44 @@
-/* Ajuste final de proporção dos logos Unilog */
+/* Sidebar/brand refinement inspired by Tailwind + shadcn icon-rail patterns. */
 
-/* Sidebar — arquivo branco: 649 x 356 */
+/* Desktop shell widths */
+.shell {
+  grid-template-columns: 244px minmax(0, 1fr) !important;
+  transition: grid-template-columns .2s ease !important;
+}
+
+.shell.sidebar-collapsed {
+  grid-template-columns: 72px minmax(0, 1fr) !important;
+}
+
+.sidebar {
+  padding: 20px 14px !important;
+  overflow: hidden !important;
+}
+
+/* Expanded header: brand on the left, trigger pinned to the far right. */
 .sidebar-head {
-  min-height: 56px !important;
-  height: 56px !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 34px !important;
+  column-gap: 22px !important;
   align-items: center !important;
+  width: 100% !important;
+  min-height: 58px !important;
+  height: 58px !important;
+  margin-bottom: 24px !important;
 }
 
 .sidebar .brand {
-  flex: 0 0 82px !important;
-  width: 82px !important;
-  min-width: 82px !important;
-  min-height: 45px !important;
-  height: 45px !important;
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 52px !important;
+  min-height: 52px !important;
   padding: 0 !important;
   margin: 0 !important;
   background-image: url('/brand/unilog-logo-white.png') !important;
   background-repeat: no-repeat !important;
   background-position: left center !important;
-  background-size: contain !important;
+  background-size: 92px auto !important;
 }
 
 .sidebar .brand .brand-mark,
@@ -26,25 +46,163 @@
   display: none !important;
 }
 
-.sidebar-collapsed .sidebar-head {
-  min-height: 50px !important;
-  height: 50px !important;
-  justify-content: center !important;
-}
-
-.sidebar-collapsed .brand {
-  flex: 0 0 34px !important;
+.sidebar .collapse-button {
+  position: static !important;
+  justify-self: end !important;
   width: 34px !important;
   min-width: 34px !important;
   height: 34px !important;
-  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: #d9dbe0 !important;
+  box-shadow: none !important;
+}
+
+.sidebar .collapse-button:hover {
+  background: rgba(255,255,255,.09) !important;
+  color: #fff !important;
+}
+
+/* Navigation: consistent row geometry, not pill-shaped. */
+.sidebar-nav {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+.sidebar-nav button {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 40px !important;
+  padding: 0 10px !important;
+  gap: 12px !important;
+  border-radius: 8px !important;
+  justify-content: flex-start !important;
+  overflow: hidden !important;
+  transition: background-color .15s ease, color .15s ease, width .2s ease, padding .2s ease !important;
+}
+
+.sidebar-nav button .material-icon {
+  flex: 0 0 auto !important;
+}
+
+.sidebar-nav button span {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.sidebar-nav button.active {
+  background: rgba(255,255,255,.10) !important;
+}
+
+.sidebar-nav button.active::before {
+  left: 0 !important;
+  top: 10px !important;
+  bottom: 10px !important;
+  width: 3px !important;
+  border-radius: 0 3px 3px 0 !important;
+}
+
+.nav-divider {
+  width: calc(100% - 16px) !important;
+  height: 1px !important;
+  margin: 10px auto !important;
+  background: rgba(255,255,255,.14) !important;
+}
+
+/* Collapsed desktop state: a true icon rail, not a squeezed sidebar. */
+.sidebar-collapsed .sidebar {
+  padding: 16px 12px !important;
+}
+
+.sidebar-collapsed .sidebar-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-height: 80px !important;
+  height: 80px !important;
+  margin-bottom: 20px !important;
+}
+
+.sidebar-collapsed .brand {
+  display: block !important;
+  flex: 0 0 32px !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
   margin: 0 auto !important;
   background-image: url('/brand/favicon-32.png') !important;
-  background-size: 30px 30px !important;
+  background-repeat: no-repeat !important;
+  background-size: 28px 28px !important;
   background-position: center !important;
 }
 
-/* Login — arquivo colorido: 608 x 360 */
+.sidebar-collapsed .collapse-button {
+  display: grid !important;
+  position: static !important;
+  justify-self: auto !important;
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  margin: 0 auto !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: rgba(255,255,255,.06) !important;
+  color: #e2e4e8 !important;
+}
+
+.sidebar-collapsed .collapse-button:hover {
+  background: rgba(255,255,255,.12) !important;
+  color: #fff !important;
+}
+
+.sidebar-collapsed .sidebar-nav {
+  gap: 7px !important;
+  align-items: center !important;
+}
+
+.sidebar-collapsed .sidebar-nav button {
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  justify-content: center !important;
+  border-radius: 9px !important;
+}
+
+.sidebar-collapsed .sidebar-nav button span {
+  display: none !important;
+}
+
+.sidebar-collapsed .sidebar-nav button.active {
+  background: rgba(255,255,255,.11) !important;
+}
+
+.sidebar-collapsed .sidebar-nav button.active::before {
+  left: 0 !important;
+  top: 11px !important;
+  bottom: 11px !important;
+  width: 3px !important;
+}
+
+.sidebar-collapsed .nav-divider {
+  width: 34px !important;
+  margin: 10px auto !important;
+}
+
+/* Login logo — preserve source aspect ratio and never stretch/crop. */
 .login-brand {
   min-width: 0 !important;
   width: auto !important;
@@ -67,6 +225,54 @@
 .login-brand > div small,
 .login-brand .brand-mark {
   display: none !important;
+}
+
+@media (max-width: 920px) {
+  .shell,
+  .shell.sidebar-collapsed {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    width: 244px !important;
+    padding: 20px 14px !important;
+  }
+
+  .sidebar-head,
+  .sidebar-collapsed .sidebar-head {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 34px !important;
+    gap: 18px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .sidebar-collapsed .brand,
+  .sidebar .brand {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    margin: 0 !important;
+    background-image: url('/brand/unilog-logo-white.png') !important;
+    background-size: 92px auto !important;
+    background-position: left center !important;
+  }
+
+  .sidebar-collapsed .sidebar-nav button,
+  .sidebar-nav button {
+    width: 100% !important;
+    height: 40px !important;
+    padding: 0 10px !important;
+    gap: 12px !important;
+    justify-content: flex-start !important;
+  }
+
+  .sidebar-collapsed .sidebar-nav button span {
+    display: inline !important;
+  }
 }
 
 @media (max-width: 720px) {
