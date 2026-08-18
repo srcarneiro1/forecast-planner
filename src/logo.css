@@ -1,6 +1,5 @@
 /* Sidebar/brand refinement inspired by Tailwind + shadcn icon-rail patterns. */
 
-/* Desktop shell widths */
 .shell {
   grid-template-columns: 244px minmax(0, 1fr) !important;
   transition: grid-template-columns .2s ease !important;
@@ -66,7 +65,6 @@
   color: #fff !important;
 }
 
-/* Navigation: consistent row geometry, not pill-shaped. */
 .sidebar-nav {
   display: flex !important;
   flex-direction: column !important;
@@ -87,10 +85,16 @@
 }
 
 .sidebar-nav button .material-icon {
+  display: inline-flex !important;
   flex: 0 0 auto !important;
+  width: 20px !important;
+  height: 20px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: inherit !important;
 }
 
-.sidebar-nav button span {
+.sidebar-nav button > span:not(.material-icon) {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
@@ -115,7 +119,7 @@
   background: rgba(255,255,255,.14) !important;
 }
 
-/* Collapsed desktop state: a true icon rail, not a squeezed sidebar. */
+/* Collapsed desktop state: a true icon rail. */
 .sidebar-collapsed .sidebar {
   padding: 16px 12px !important;
 }
@@ -127,22 +131,24 @@
   justify-content: flex-start !important;
   gap: 10px !important;
   width: 100% !important;
-  min-height: 80px !important;
-  height: 80px !important;
-  margin-bottom: 20px !important;
+  min-height: 82px !important;
+  height: 82px !important;
+  margin-bottom: 18px !important;
 }
 
 .sidebar-collapsed .brand {
   display: block !important;
-  flex: 0 0 32px !important;
-  width: 32px !important;
-  min-width: 32px !important;
-  height: 32px !important;
-  min-height: 32px !important;
+  flex: 0 0 34px !important;
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
   margin: 0 auto !important;
-  background-image: url('/brand/favicon-32.png') !important;
+  border-radius: 9px !important;
+  background-color: transparent !important;
+  background-image: url('/brand/favicon.svg') !important;
   background-repeat: no-repeat !important;
-  background-size: 28px 28px !important;
+  background-size: 32px 32px !important;
   background-position: center !important;
 }
 
@@ -155,13 +161,13 @@
   height: 34px !important;
   margin: 0 auto !important;
   border: 0 !important;
-  border-radius: 8px !important;
-  background: rgba(255,255,255,.06) !important;
+  border-radius: 9px !important;
+  background: rgba(255,255,255,.07) !important;
   color: #e2e4e8 !important;
 }
 
 .sidebar-collapsed .collapse-button:hover {
-  background: rgba(255,255,255,.12) !important;
+  background: rgba(255,255,255,.13) !important;
   color: #fff !important;
 }
 
@@ -182,12 +188,27 @@
   border-radius: 9px !important;
 }
 
-.sidebar-collapsed .sidebar-nav button span {
+/* Hide only text labels. Material icons are spans too, so never hide them. */
+.sidebar-collapsed .sidebar-nav button > span:not(.material-icon) {
   display: none !important;
 }
 
+.sidebar-collapsed .sidebar-nav button .material-icon {
+  display: inline-flex !important;
+  width: 22px !important;
+  height: 22px !important;
+  font-size: 20px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #eef0f3 !important;
+}
+
 .sidebar-collapsed .sidebar-nav button.active {
-  background: rgba(255,255,255,.11) !important;
+  background: rgba(255,255,255,.12) !important;
+}
+
+.sidebar-collapsed .sidebar-nav button.active .material-icon {
+  color: #fff !important;
 }
 
 .sidebar-collapsed .sidebar-nav button.active::before {
@@ -270,8 +291,13 @@
     justify-content: flex-start !important;
   }
 
-  .sidebar-collapsed .sidebar-nav button span {
+  .sidebar-collapsed .sidebar-nav button > span:not(.material-icon) {
     display: inline !important;
+  }
+
+  .sidebar-collapsed .sidebar-nav button .material-icon {
+    display: inline-flex !important;
+    color: inherit !important;
   }
 }
 
