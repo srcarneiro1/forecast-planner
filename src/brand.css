@@ -1,0 +1,82 @@
+:root{
+  font-family:'Roboto',Arial,sans-serif;
+  --accent:#db0812;
+  --accent-hover:#b8070f;
+  --accent-soft:#fdecee;
+  --sidebar:#494a56;
+  --text:#2f3136;
+  --muted:#686b73;
+  --subtle:#90939a;
+  --line:#e2e4e8;
+  --line-strong:#cdd0d5;
+  --surface:#fff;
+  --surface-alt:#f6f7f8;
+  --success:#3f7c59;
+  --warning:#a87900;
+  --danger:#db0812;
+  --brand-red:#db0812;
+  --brand-gray:#494a56;
+  --brand-blue:#accfcc;
+  --brand-brown:#b8ad9c;
+  --brand-yellow:#f2d750;
+}
+html,body,#root{background:#f6f7f8}
+body{font-family:'Roboto',Arial,sans-serif;color:var(--text)}
+.sidebar{background:var(--brand-gray);color:#fff}
+.sidebar-head{height:48px;margin-bottom:24px}
+.brand{min-height:42px;background:url('/brand/unilog-logo-white.png') left center/112px auto no-repeat;padding-left:0}
+.brand .brand-mark,.brand .brand-copy{visibility:hidden}
+.sidebar-collapsed .brand{background-image:url('/brand/favicon-32.png');background-size:30px 30px;background-position:center}
+.sidebar .icon-button{color:#d6d7da}
+.sidebar .icon-button:hover{background:rgba(255,255,255,.09);color:#fff}
+.sidebar-nav button{color:#e3e4e6;border-radius:6px;position:relative}
+.sidebar-nav button:hover{background:rgba(255,255,255,.07);color:#fff}
+.sidebar-nav button.active{background:rgba(255,255,255,.09);color:#fff}
+.sidebar-nav button.active::before{content:'';position:absolute;left:0;top:7px;bottom:7px;width:3px;border-radius:2px;background:var(--brand-red)}
+.sidebar-nav button.active .material-icon{color:#fff}
+.nav-divider,.user-card{border-color:rgba(255,255,255,.13)}
+.topbar{background:#fff;border-color:var(--line)}
+main{max-width:1540px}
+.page-header h1{color:var(--brand-gray)}
+.primary-action{background:var(--brand-red);border-color:var(--brand-red);border-radius:6px}
+.primary-action:hover{background:#b8070f;border-color:#b8070f}
+.secondary-action,.danger-action{border-radius:6px}
+.link-action{color:var(--brand-red)}
+.operation-summary,.kpi-strip,.simulation-summary,.section-panel,.empty-panel,.history-card,.login-card{border-radius:10px;box-shadow:0 1px 2px rgba(29,31,35,.025)}
+.kpi-strip.five,.simulation-summary.five{grid-template-columns:repeat(5,1fr)}
+.kpi-strip strong{color:#34363b}
+.kpi-strip>div:nth-child(2) strong{color:var(--brand-red)}
+.simulation-summary>div:nth-child(3) b{color:var(--brand-red)}
+.simulation-summary small{font-size:9px;color:var(--subtle)}
+.table-panel{border-radius:10px}
+th{background:#f1f2f4;color:var(--brand-gray);font-weight:700}
+tbody tr:hover{background:#fafafb}
+tbody tr.row-attention{background:#fff9f1}
+.backlog-value{color:var(--brand-red)}
+.decision-status.accepted{color:var(--success);background:#edf6f0}
+.decision-status.rejected{color:#a60a12;background:#fdecee}
+.decision-status.pending{color:#8a6600;background:#fff7db}
+.decision-btn.selected{border-color:var(--brand-gray);color:var(--brand-gray)}
+.decision-btn.reject.selected{border-color:var(--brand-red);color:var(--brand-red)}
+.login-page{background:#f6f7f8}
+.login-brand{min-width:260px;align-self:center}
+.login-brand .brand-mark{display:none}
+.login-brand>div{min-height:92px;width:250px;background:url('/brand/unilog-logo-color.png') left center/190px auto no-repeat}
+.login-brand>div b,.login-brand>div small{display:none}
+.login-card.standalone{border-top:3px solid var(--brand-red)}
+.login-card h1{color:var(--brand-gray)}
+.login-form input:focus,.form-grid input:focus,.form-grid select:focus,.select-wrap select:focus{border-color:var(--brand-gray);box-shadow:0 0 0 2px rgba(73,74,86,.10)}
+.progress-item.current>span{border-color:var(--brand-red);color:var(--brand-red);background:#fdecee}
+.dropzone:hover{border-color:#9da0a6;background:#f8f8f9}
+.profile-chip{border-color:var(--line)}
+.mini-avatar{background:#edf0f2;color:var(--brand-gray)}
+@media(max-width:980px){
+  .kpi-strip.five,.simulation-summary.five{grid-template-columns:repeat(2,1fr)}
+  .kpi-strip.five>div:last-child,.simulation-summary.five>div:last-child{grid-column:1/-1}
+}
+@media(max-width:720px){
+  .login-brand{min-width:0;width:100%;display:flex;justify-content:center}
+  .login-brand>div{width:220px;background-position:center;background-size:170px auto}
+  .kpi-strip.five,.simulation-summary.five{grid-template-columns:1fr}
+  .kpi-strip.five>div:last-child,.simulation-summary.five>div:last-child{grid-column:auto}
+}
