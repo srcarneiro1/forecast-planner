@@ -3,19 +3,44 @@
 /* Expanded sidebar */
 .sidebar-head {
   grid-template-columns: minmax(0, 1fr) 32px !important;
-  column-gap: 28px !important;
-  min-height: 54px !important;
-  height: 54px !important;
+  column-gap: 30px !important;
+  min-height: 52px !important;
+  height: 52px !important;
   margin-bottom: 24px !important;
 }
 
 .sidebar .brand {
-  height: 46px !important;
-  min-height: 46px !important;
+  box-sizing: border-box !important;
+  width: 92px !important;
+  min-width: 92px !important;
+  max-width: 92px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  background-color: transparent !important;
   background-image: url('/brand/unilog-logo-white.png') !important;
   background-repeat: no-repeat !important;
   background-position: left center !important;
-  background-size: 78px auto !important;
+  background-size: 72px auto !important;
+}
+
+.sidebar .brand:focus,
+.sidebar .brand:active,
+.sidebar .collapse-button:focus,
+.sidebar .collapse-button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.sidebar .brand:focus-visible {
+  outline: 2px solid rgba(255,255,255,.42) !important;
+  outline-offset: 1px !important;
 }
 
 .sidebar .collapse-button {
@@ -25,28 +50,38 @@
   border-radius: 8px !important;
 }
 
-/* Collapsed rail: use the same white Unilog mark, just smaller. */
+.sidebar .collapse-button:focus-visible {
+  outline: 2px solid rgba(255,255,255,.42) !important;
+  outline-offset: 1px !important;
+}
+
+/* Collapsed rail: same white wordmark, smaller and contained. */
 .sidebar-collapsed .sidebar-head {
-  min-height: 78px !important;
-  height: 78px !important;
+  min-height: 74px !important;
+  height: 74px !important;
   gap: 12px !important;
   margin-bottom: 18px !important;
 }
 
 .sidebar-collapsed .brand {
   display: block !important;
-  flex: 0 0 28px !important;
-  width: 48px !important;
-  min-width: 48px !important;
-  height: 28px !important;
-  min-height: 28px !important;
+  flex: 0 0 24px !important;
+  width: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  height: 24px !important;
+  min-height: 24px !important;
   margin: 0 auto !important;
-  border-radius: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  outline: none !important;
+  overflow: hidden !important;
   background-color: transparent !important;
   background-image: url('/brand/unilog-logo-white.png') !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  background-size: 44px auto !important;
+  background-size: 38px auto !important;
 }
 
 .sidebar-collapsed .collapse-button {
@@ -62,12 +97,14 @@
 @media (max-width: 920px) {
   .sidebar .brand,
   .sidebar-collapsed .brand {
-    width: 100% !important;
-    min-width: 0 !important;
-    height: 46px !important;
-    min-height: 46px !important;
+    width: 86px !important;
+    min-width: 86px !important;
+    max-width: 86px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    margin: 0 !important;
     background-image: url('/brand/unilog-logo-white.png') !important;
     background-position: left center !important;
-    background-size: 78px auto !important;
+    background-size: 68px auto !important;
   }
 }
