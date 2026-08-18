@@ -1,0 +1,73 @@
+/* Final brand sizing for sidebar states */
+
+/* Expanded sidebar */
+.sidebar-head {
+  grid-template-columns: minmax(0, 1fr) 32px !important;
+  column-gap: 28px !important;
+  min-height: 54px !important;
+  height: 54px !important;
+  margin-bottom: 24px !important;
+}
+
+.sidebar .brand {
+  height: 46px !important;
+  min-height: 46px !important;
+  background-image: url('/brand/unilog-logo-white.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: left center !important;
+  background-size: 78px auto !important;
+}
+
+.sidebar .collapse-button {
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+}
+
+/* Collapsed rail: use the same white Unilog mark, just smaller. */
+.sidebar-collapsed .sidebar-head {
+  min-height: 78px !important;
+  height: 78px !important;
+  gap: 12px !important;
+  margin-bottom: 18px !important;
+}
+
+.sidebar-collapsed .brand {
+  display: block !important;
+  flex: 0 0 28px !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  margin: 0 auto !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  background-image: url('/brand/unilog-logo-white.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 44px auto !important;
+}
+
+.sidebar-collapsed .collapse-button {
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  margin: 0 auto !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: rgba(255,255,255,.07) !important;
+}
+
+@media (max-width: 920px) {
+  .sidebar .brand,
+  .sidebar-collapsed .brand {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    background-image: url('/brand/unilog-logo-white.png') !important;
+    background-position: left center !important;
+    background-size: 78px auto !important;
+  }
+}
