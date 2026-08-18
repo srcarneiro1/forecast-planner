@@ -6,6 +6,7 @@ import './brand.css'
 import './unilog.css'
 import './logo.css'
 import './auth.css'
+import './brand-final.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
