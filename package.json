@@ -1,9 +1,15 @@
 {
   "name": "forecast-planner",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
-  "scripts": {"dev":"vite","build":"tsc -b && vite build","preview":"vite preview"},
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "prepare": "npm run build",
+    "deploy": "npm run build && npx wrangler deploy",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@supabase/supabase-js": "2.111.0",
     "lucide-react": "1.28.0",
