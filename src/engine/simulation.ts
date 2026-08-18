@@ -9,7 +9,7 @@ export type Depositor = {
 }
 
 export type Tariffs={diaUtil:number;sabado:number;domingoFeriado:number;noturno:number}
-export type ForecastRow={data:string;forecast:number}
+export type ForecastRow={data:string;forecast:number;mediaSkuPedido?:number}
 export type Decision='accepted'|'rejected'
 export type Decisions=Record<string,Decision>
 export type DecisionStatus='base'|'pending'|'accepted'|'rejected'
