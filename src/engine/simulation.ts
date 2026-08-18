@@ -1,0 +1,20 @@
+export type Depositor = {
+  nome: string; escala: '5x2'|'4x3'; jornada: 'SEG a SEX'|'DOM a QUA'|'QUA a SÁB';
+  horas_trabalhadas_dia:number; capacidade_checkout_dia:number; pessoas_por_checkout:number;
+  pessoas_separando:number; pessoas_embalando:number; pessoas_embalagem_caixa:number; pessoas_roteirizando:number; pessoas_ressuprindo:number;
+  checkouts_atuais:number; checkouts_maximos:number; tipo_colmeia:'Fixa'|'Móvel'|'Não se aplica';
+  dimensionamento_apoios:'Fixo por turno'|'Por checkout'; horas_extra_max_dia_util:number;
+  horas_operacao_extra_sabado:number; horas_operacao_extra_dom_feriado:number;
+}
+export type ForecastRow={data:string;forecast:number}
+export type DayResult=ForecastRow&{tipoDia:string;dentroEscala:boolean;backlogAnterior:number;producaoNecessaria:number;acao:string;checkouts:number;capacidade:number;producao:number;backlogFinal:number;hcBase:number;hcAdicional:number;hcTotal:number;horasBase:number;horasAdicionais:number}
+const dow=(d:string)=>new Date(`${d}T12:00:00`).getDay()
+export function isScheduled(d:string,p:Depositor,holidays:Set<string>){ if(holidays.has(d)) return false; const w=dow(d); if(p.jornada==='SEG a SEX') return w>=1&&w<=5; if(p.jornada==='DOM a QUA') return [0,1,2,3].includes(w); return [3,4,5,6].includes(w) }
+export function dayType(d:string,holidays:Set<string>){ if(holidays.has(d))return'Feriado'; const w=dow(d); return w===0?'Domingo':w===6?'Sábado':'Dia útil' }
+function baseHC(p:Depositor,checkouts:number,turns=1){ const res=p.tipo_colmeia==='Móvel'?0:p.pessoas_ressuprindo; const supports=p.pessoas_separando+p.pessoas_embalando+p.pessoas_embalagem_caixa+p.pessoas_roteirizando+res; const core=checkouts*p.pessoas_por_checkout; const hc=p.dimensionamento_apoios==='Por checkout'?core+supports*checkouts:core+supports; return Math.ceil(hc*turns) }
+export function simulate(rows:ForecastRow[],p:Depositor,holidays=new Set<string>()):DayResult[]{ let backlog=0; return [...rows].sort((a,b)=>a.data.localeCompare(b.data)).map(r=>{ const scheduled=isScheduled(r.data,p,holidays), tipo=dayType(r.data,holidays), need=r.forecast+backlog; let action='Base / sem ação', turns=1, extra=0, available=p.checkouts_atuais; const baseCap=p.capacidade_checkout_dia; let capPer=baseCap; if(!scheduled){ action=tipo==='Dia útil'?'Operar fora da escala':'Operar no fim de semana / feriado'; available=p.checkouts_maximos; const hrs=tipo==='Sábado'?p.horas_operacao_extra_sabado:p.horas_operacao_extra_dom_feriado; capPer=(baseCap/p.horas_trabalhadas_dia)*hrs }
+ let checkouts=Math.min(available,Math.max(need>0?1:0,Math.ceil(need/Math.max(capPer,1)))); let capacity=checkouts*capPer;
+ if(need>capacity && scheduled && tipo==='Dia útil' && p.horas_extra_max_dia_util>0){ action='Mão de obra adicional + HE'; extra=p.horas_extra_max_dia_util; available=p.checkouts_maximos; capPer=(baseCap/p.horas_trabalhadas_dia)*(p.horas_trabalhadas_dia+extra); checkouts=Math.min(available,Math.ceil(need/Math.max(capPer,1))); capacity=checkouts*capPer }
+ if(need>capacity){ action='2º turno'; turns=2; extra=0; available=p.checkouts_maximos; capPer=baseCap*2; checkouts=Math.min(available,Math.ceil(need/Math.max(capPer,1))); capacity=checkouts*capPer }
+ if(need>capacity){ action='3 turnos A, B e C'; turns=3; capPer=baseCap*3; checkouts=Math.min(p.checkouts_maximos,Math.ceil(need/Math.max(capPer,1))); capacity=checkouts*capPer }
+ const production=Math.min(need,capacity), final=Math.max(0,need-production); const hc=baseHC(p,checkouts,turns); const hcBase=baseHC(p,Math.min(checkouts,p.checkouts_atuais),Math.min(turns,1)); const result={...r,tipoDia:tipo,dentroEscala:scheduled,backlogAnterior:backlog,producaoNecessaria:need,acao:action,checkouts,capacidade:Math.round(capacity),producao:Math.round(production),backlogFinal:Math.round(final),hcBase,hcAdicional:Math.max(0,hc-hcBase),hcTotal:hc,horasBase:scheduled?p.horas_trabalhadas_dia:0,horasAdicionais:scheduled?extra:(tipo==='Sábado'?p.horas_operacao_extra_sabado:p.horas_operacao_extra_dom_feriado)}; backlog=final; return result }) }
