@@ -1,0 +1,86 @@
+/* Ajuste final de proporção dos logos Unilog */
+
+/* Sidebar — arquivo branco: 649 x 356 */
+.sidebar-head {
+  min-height: 56px !important;
+  height: 56px !important;
+  align-items: center !important;
+}
+
+.sidebar .brand {
+  flex: 0 0 82px !important;
+  width: 82px !important;
+  min-width: 82px !important;
+  min-height: 45px !important;
+  height: 45px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-image: url('/brand/unilog-logo-white.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: left center !important;
+  background-size: contain !important;
+}
+
+.sidebar .brand .brand-mark,
+.sidebar .brand .brand-copy {
+  display: none !important;
+}
+
+.sidebar-collapsed .sidebar-head {
+  min-height: 50px !important;
+  height: 50px !important;
+  justify-content: center !important;
+}
+
+.sidebar-collapsed .brand {
+  flex: 0 0 34px !important;
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  margin: 0 auto !important;
+  background-image: url('/brand/favicon-32.png') !important;
+  background-size: 30px 30px !important;
+  background-position: center !important;
+}
+
+/* Login — arquivo colorido: 608 x 360 */
+.login-brand {
+  min-width: 0 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.login-brand > div {
+  width: 168px !important;
+  min-width: 168px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 608 / 360 !important;
+  background-image: url('/brand/unilog-logo-color.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+}
+
+.login-brand > div b,
+.login-brand > div small,
+.login-brand .brand-mark {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  .login-brand {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .login-brand > div {
+    width: 150px !important;
+    min-width: 150px !important;
+    aspect-ratio: 608 / 360 !important;
+    background-size: contain !important;
+    background-position: center !important;
+  }
+}
