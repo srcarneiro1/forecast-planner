@@ -1,5 +1,7 @@
+export type JornadaAtiva='SEG a SEX'|'DOM a QUA'|'QUA a SÁB'
+
 export type Depositor = {
-  nome: string; escala: '5x2'|'4x3'; jornada: 'SEG a SEX'|'DOM a QUA'|'QUA a SÁB';
+  nome: string; escala: '5x2'|'4x3'; jornada: JornadaAtiva; jornadas_ativas:JornadaAtiva[];
   horas_trabalhadas_dia:number; capacidade_checkout_dia:number; pessoas_por_checkout:number;
   pessoas_separando:number; pessoas_embalando:number; pessoas_embalagem_caixa:number; pessoas_roteirizando:number; pessoas_ressuprindo:number;
   checkouts_atuais:number; checkouts_maximos:number; checkouts_minimos_dia_util:number; checkouts_maximos_fim_semana:number;
@@ -26,13 +28,17 @@ export type DayResult=ForecastRow&{
 
 const zeroTariffs:Tariffs={diaUtil:0,sabado:0,domingoFeriado:0,noturno:0}
 const dow=(d:string)=>new Date(`${d}T12:00:00`).getDay()
+const scheduleDays:Record<JornadaAtiva,number[]>={
+  'SEG a SEX':[1,2,3,4,5],
+  'DOM a QUA':[0,1,2,3],
+  'QUA a SÁB':[3,4,5,6],
+}
 
 export function isScheduled(d:string,p:Depositor,holidays:Set<string>){
   if(holidays.has(d)) return false
   const w=dow(d)
-  if(p.jornada==='SEG a SEX') return w>=1&&w<=5
-  if(p.jornada==='DOM a QUA') return [0,1,2,3].includes(w)
-  return [3,4,5,6].includes(w)
+  const active=p.jornadas_ativas?.length?p.jornadas_ativas:[p.jornada]
+  return active.some(j=>scheduleDays[j].includes(w))
 }
 
 export function dayType(d:string,holidays:Set<string>){
