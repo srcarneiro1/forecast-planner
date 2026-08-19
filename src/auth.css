@@ -22,28 +22,29 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  background: transparent !important;
 }
 
 .login-brand .brand-mark {
   display: none !important;
 }
 
-/* Use the clean monochrome asset over the corporate gray surface. */
+/* One single colored logo with transparent background. */
 .login-brand > div {
-  width: 176px !important;
-  min-width: 176px !important;
-  height: 78px !important;
-  min-height: 78px !important;
+  width: 220px !important;
+  min-width: 0 !important;
+  height: 100px !important;
+  min-height: 0 !important;
   aspect-ratio: auto !important;
   display: block !important;
-  border: 1px solid rgba(73,74,86,.08) !important;
-  border-radius: 12px !important;
-  background-color: #494a56 !important;
-  background-image: url('/brand/unilog-logo-white.png') !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  background-image: url('/brand/unilog-logo-color-transparent.svg') !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  background-size: 112px auto !important;
-  box-shadow: 0 6px 18px rgba(29,31,35,.08) !important;
+  background-size: contain !important;
+  box-shadow: none !important;
 }
 
 .login-brand > div b,
@@ -146,11 +147,11 @@
   }
 
   .login-brand > div {
-    width: 154px !important;
-    min-width: 154px !important;
-    height: 68px !important;
-    min-height: 68px !important;
-    background-size: 98px auto !important;
+    width: 190px !important;
+    min-width: 0 !important;
+    height: 88px !important;
+    min-height: 0 !important;
+    background-size: contain !important;
   }
 
   .login-card.standalone {
