@@ -1,0 +1,189 @@
+/* Parameters — scale and schedule visual refinement */
+
+/* Keep the 5x2 schedule visually aligned with the other form controls. */
+.schedule-readonly {
+  display: grid !important;
+  gap: 6px !important;
+  min-width: 0 !important;
+  align-self: start !important;
+}
+
+.schedule-readonly > span {
+  color: #615b64 !important;
+  font-size: 10px !important;
+  font-weight: 650 !important;
+  line-height: 1.2 !important;
+}
+
+.schedule-readonly > b {
+  width: 100% !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 12px !important;
+  border: 1px solid var(--line-strong) !important;
+  border-radius: 7px !important;
+  background: #f6f7f8 !important;
+  color: var(--brand-gray) !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+  box-shadow: none !important;
+}
+
+.schedule-readonly > b::before {
+  content: 'Jornada fixa';
+  margin-right: 10px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: #eceef0;
+  color: #777b82;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+/* 4x3 schedule selector becomes a clean two-card control instead of a native fieldset. */
+.schedule-fieldset {
+  grid-column: 1 / -1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.schedule-fieldset > legend {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  margin: 0 0 2px !important;
+  padding: 0 !important;
+  color: #615b64 !important;
+  font-size: 10px !important;
+  font-weight: 650 !important;
+  line-height: 1.2 !important;
+}
+
+.schedule-fieldset > label {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-height: 58px !important;
+  padding: 10px 12px !important;
+  margin: 0 !important;
+  border: 1px solid var(--line-strong) !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  color: var(--brand-gray) !important;
+  cursor: pointer !important;
+  transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease !important;
+}
+
+.schedule-fieldset > label:hover {
+  border-color: #aeb1b7 !important;
+  background: #fafafb !important;
+}
+
+.schedule-fieldset > label:has(input:checked) {
+  border-color: rgba(219,8,18,.55) !important;
+  background: #fff7f7 !important;
+  box-shadow: 0 0 0 2px rgba(219,8,18,.05) !important;
+}
+
+/* Undo the generic width:100% input rule that was making these checkboxes huge. */
+.schedule-fieldset input[type='checkbox'] {
+  appearance: auto !important;
+  width: 18px !important;
+  min-width: 18px !important;
+  max-width: 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 0 0 18px !important;
+  accent-color: var(--brand-red) !important;
+  box-shadow: none !important;
+}
+
+.schedule-fieldset > label > span {
+  display: grid !important;
+  gap: 2px !important;
+  color: var(--brand-gray) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+}
+
+.schedule-fieldset > label:nth-of-type(1) > span::after {
+  content: 'Domingo a quarta-feira';
+}
+
+.schedule-fieldset > label:nth-of-type(2) > span::after {
+  content: 'Quarta-feira a sábado';
+}
+
+.schedule-fieldset > label > span::after {
+  color: #858991 !important;
+  font-size: 9px !important;
+  font-weight: 400 !important;
+}
+
+/* The overlap explanation is relevant only when both 4x3 teams are selected. */
+.schedule-fieldset > small {
+  display: none !important;
+}
+
+.schedule-fieldset:has(> label:nth-of-type(1) input:checked):has(> label:nth-of-type(2) input:checked) > small {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 8px 10px !important;
+  border: 1px solid #eadadd !important;
+  border-radius: 7px !important;
+  background: #fff9f9 !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.schedule-fieldset:has(> label:nth-of-type(1) input:checked):has(> label:nth-of-type(2) input:checked) > small::before {
+  content: 'Duas jornadas ativas: as equipes operam simultaneamente na quarta-feira, que é o dia de sobreposição.';
+  color: #6d5659 !important;
+  font-size: 9.5px !important;
+  font-weight: 500 !important;
+}
+
+/* Keep the active-depositor checkbox from being affected by the generic form input sizing. */
+.form-grid > label.checkbox {
+  align-self: center !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-height: 38px !important;
+}
+
+.form-grid > label.checkbox input[type='checkbox'] {
+  width: 16px !important;
+  min-width: 16px !important;
+  max-width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 0 0 16px !important;
+}
+
+@media (max-width: 760px) {
+  .schedule-fieldset {
+    grid-template-columns: 1fr !important;
+  }
+
+  .schedule-fieldset > legend,
+  .schedule-fieldset > small {
+    grid-column: 1 !important;
+  }
+}
