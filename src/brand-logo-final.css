@@ -1,5 +1,6 @@
 /* Single source of truth for Unilog branding. */
 
+/* LOGIN — use the existing inner div as the only logo surface. */
 .login-brand {
   display: flex !important;
   align-items: center !important;
@@ -17,25 +18,40 @@
   overflow: visible !important;
 }
 
-.login-brand > * {
+.login-brand .brand-mark,
+.login-brand > div b,
+.login-brand > div small {
   display: none !important;
 }
 
-.login-brand::before {
+.login-brand::before,
+.login-brand::after {
   content: none !important;
   display: none !important;
 }
 
-.login-brand::after {
-  content: "";
-  display: block;
-  width: min(220px, 72vw);
-  height: 100px;
-  background: url('/brand/unilog-logo-color-transparent.svg') center / contain no-repeat !important;
+.login-brand > div {
+  display: block !important;
+  width: min(220px, 72vw) !important;
+  min-width: 0 !important;
+  max-width: 220px !important;
+  height: 100px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  aspect-ratio: auto !important;
+  background-color: transparent !important;
+  background-image: url('/brand/unilog-logo-color-transparent.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
   border: 0 !important;
+  border-radius: 0 !important;
   box-shadow: none !important;
+  overflow: visible !important;
 }
 
+/* SIDEBAR EXPANDED — full white logo, transparent background. */
 .sidebar .brand {
   display: block !important;
   box-sizing: border-box !important;
@@ -49,7 +65,11 @@
   overflow: visible !important;
   border: 0 !important;
   border-radius: 0 !important;
-  background: transparent url('/brand/unilog-logo-white-transparent.svg') center / contain no-repeat !important;
+  background-color: transparent !important;
+  background-image: url('/brand/unilog-logo-white-transparent.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
   box-shadow: none !important;
 }
 
@@ -61,6 +81,7 @@
   content: none !important;
 }
 
+/* SIDEBAR COLLAPSED — same full white logo, proportionally smaller. */
 .sidebar-collapsed .brand {
   display: block !important;
   flex: 0 0 38px !important;
@@ -74,7 +95,11 @@
   overflow: visible !important;
   border: 0 !important;
   border-radius: 0 !important;
-  background: transparent url('/brand/unilog-logo-white-transparent.svg') center / contain no-repeat !important;
+  background-color: transparent !important;
+  background-image: url('/brand/unilog-logo-white-transparent.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
   box-shadow: none !important;
 }
 
@@ -87,13 +112,18 @@
     height: 46px !important;
     min-height: 46px !important;
     margin: 0 !important;
-    background: transparent url('/brand/unilog-logo-white-transparent.svg') center / contain no-repeat !important;
+    background-color: transparent !important;
+    background-image: url('/brand/unilog-logo-white-transparent.svg') !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
   }
 }
 
 @media (max-width: 720px) {
-  .login-brand::after {
-    width: min(190px, 76vw);
-    height: 88px;
+  .login-brand > div {
+    width: min(190px, 76vw) !important;
+    max-width: 190px !important;
+    height: 88px !important;
   }
 }
