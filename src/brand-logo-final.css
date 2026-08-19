@@ -81,28 +81,122 @@
   content: none !important;
 }
 
-/* SIDEBAR COLLAPSED — same full white logo, proportionally smaller. */
-.sidebar-collapsed .brand {
-  display: block !important;
-  flex: 0 0 38px !important;
-  width: 50px !important;
-  min-width: 50px !important;
-  max-width: 50px !important;
-  height: 38px !important;
-  min-height: 38px !important;
-  padding: 0 !important;
-  margin: 0 auto !important;
-  overflow: visible !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background-color: transparent !important;
-  background-image: url('/brand/unilog-logo-white-transparent.svg') !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: contain !important;
-  box-shadow: none !important;
+/* DESKTOP COLLAPSED — logo and expand control occupy separate rows. */
+@media (min-width: 921px) {
+  .sidebar-collapsed .sidebar {
+    padding: 14px 10px !important;
+  }
+
+  .sidebar-collapsed .sidebar-head {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 82px !important;
+    margin-bottom: 18px !important;
+  }
+
+  /* Same complete white logo, proportionally smaller. */
+  .sidebar-collapsed .brand {
+    display: block !important;
+    flex: 0 0 34px !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    background-image: url('/brand/unilog-logo-white-transparent.svg') !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove the absolute positioning that was overlapping the logo. */
+  .sidebar-collapsed .collapse-button {
+    position: static !important;
+    inset: auto !important;
+    display: grid !important;
+    place-items: center !important;
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    border: 1px solid rgba(255,255,255,.18) !important;
+    border-radius: 9px !important;
+    background: rgba(255,255,255,.07) !important;
+    color: #eef0f3 !important;
+  }
+
+  .sidebar-collapsed .collapse-button:hover {
+    background: rgba(255,255,255,.13) !important;
+    color: #fff !important;
+  }
+
+  /* Restore icon rail. Base styles hide every span, including Material Icons. */
+  .sidebar-collapsed .sidebar-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 7px !important;
+    width: 100% !important;
+  }
+
+  .sidebar-collapsed .sidebar-nav button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    border-radius: 9px !important;
+    overflow: visible !important;
+  }
+
+  /* Hide only the text label, never the icon span. */
+  .sidebar-collapsed .sidebar-nav button > span:not(.material-icon) {
+    display: none !important;
+  }
+
+  .sidebar-collapsed .sidebar-nav button .material-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    color: inherit !important;
+  }
+
+  .sidebar-collapsed .sidebar-nav button.active .material-icon {
+    color: #fff !important;
+  }
+
+  .sidebar-collapsed .nav-divider {
+    width: 34px !important;
+    margin: 10px auto !important;
+  }
 }
 
+/* Mobile menu always behaves as an expanded sidebar. */
 @media (max-width: 920px) {
   .sidebar .brand,
   .sidebar-collapsed .brand {
