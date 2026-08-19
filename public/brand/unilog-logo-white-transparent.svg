@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 340" role="img" aria-labelledby="title desc">
+  <title id="title">Unilog Express</title>
+  <desc id="desc">Logo Unilog Express branca com fundo transparente</desc>
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M495 38C350 11 172 34 91 105C42 148 34 197 72 238C116 286 208 309 326 304" stroke-width="34"/>
+    <path d="M296 33C425 34 525 74 559 135C587 185 562 232 502 270C442 308 342 326 224 312" stroke-width="34"/>
+  </g>
+  <text x="310" y="194" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="102" font-weight="900" letter-spacing="-5" fill="#FFFFFF">UNILOG</text>
+  <text x="310" y="242" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" letter-spacing="4" fill="#FFFFFF">EXPRESS</text>
+</svg>
