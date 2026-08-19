@@ -1,0 +1,111 @@
+/* Final logo treatment: full mark, transparent containers, no crop/distortion. */
+
+/* Login: complete colored logo inside a transparent container. */
+.login-brand {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  padding: 10px 14px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.login-brand > * {
+  display: none !important;
+}
+
+.login-brand::after {
+  content: "";
+  display: block;
+  width: min(210px, 68vw);
+  height: 112px;
+  background-image: url('/brand/unilog-logo-color.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* Sidebar: complete white logo in a transparent container. */
+.sidebar .brand {
+  display: block !important;
+  box-sizing: border-box !important;
+  width: 118px !important;
+  min-width: 118px !important;
+  max-width: 118px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 8px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background-color: transparent !important;
+  background-image: url('/brand/unilog-logo-white.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: calc(100% - 16px) auto !important;
+  box-shadow: none !important;
+}
+
+.sidebar .brand .brand-mark,
+.sidebar .brand .brand-copy {
+  display: none !important;
+}
+
+/* Collapsed sidebar: keep the same complete white logo, only proportionally smaller. */
+.sidebar-collapsed .sidebar-head {
+  align-items: center !important;
+}
+
+.sidebar-collapsed .brand {
+  display: block !important;
+  flex: 0 0 34px !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 3px !important;
+  margin: 0 auto !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 7px !important;
+  background-color: transparent !important;
+  background-image: url('/brand/unilog-logo-white.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: calc(100% - 6px) auto !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 920px) {
+  .sidebar .brand,
+  .sidebar-collapsed .brand {
+    width: 108px !important;
+    min-width: 108px !important;
+    max-width: 108px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    padding: 7px !important;
+    margin: 0 !important;
+    background-image: url('/brand/unilog-logo-white.png') !important;
+    background-position: center !important;
+    background-size: calc(100% - 14px) auto !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .login-brand {
+    padding: 8px 12px !important;
+  }
+
+  .login-brand::after {
+    width: min(180px, 72vw);
+    height: 96px;
+  }
+}
