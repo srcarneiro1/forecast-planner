@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import ScenarioAnalysisFeature from './ScenarioAnalysisFeature'
+import DashboardHistoryFeature from './DashboardHistoryFeature'
 import './planning.css'
 import './brand.css'
 import './unilog.css'
@@ -13,5 +14,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
     <ScenarioAnalysisFeature />
+    <DashboardHistoryFeature />
   </StrictMode>,
 )
