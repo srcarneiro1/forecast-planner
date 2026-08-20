@@ -1,0 +1,75 @@
+/* Forecast Planner — dashboard, detailed history and per-day checkout planning */
+
+.checkout-plan-input{
+  width:62px!important;
+  min-width:62px!important;
+  height:30px!important;
+  padding:0 7px!important;
+  border:1px solid var(--line-strong)!important;
+  border-radius:6px!important;
+  background:#fff!important;
+  color:#2f3136!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  text-align:center!important;
+  outline:none!important;
+  box-shadow:none!important;
+}
+.checkout-plan-input:focus{border-color:rgba(219,8,18,.5)!important;box-shadow:0 0 0 2px rgba(219,8,18,.06)!important}
+
+.dashboard-last-plan{padding:0!important;overflow:hidden}
+.dashboard-last-plan>.section-heading{padding:18px 20px 14px}
+.dashboard-plan-kpis{display:grid;grid-template-columns:repeat(5,1fr)}
+.dashboard-plan-kpis>div{display:grid;gap:3px;padding:16px 18px;border-right:1px solid var(--line)}
+.dashboard-plan-kpis>div:last-child{border-right:0}
+.dashboard-plan-kpis span{font-size:9px;color:var(--muted)}
+.dashboard-plan-kpis strong{font-size:20px;line-height:1.2;color:#34363b}
+.dashboard-plan-kpis small{font-size:8.5px;color:var(--subtle)}
+.dashboard-compare{display:grid;grid-template-columns:1.3fr .7fr;gap:14px}
+.compare-table{display:grid;margin-top:4px}
+.compare-head,.compare-table>div{display:grid;grid-template-columns:1.2fr repeat(3,.8fr);gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #efedf0}
+.compare-head{color:var(--muted);font-size:9px;font-weight:700}
+.compare-table>div:last-child{border-bottom:0}
+.compare-table>div>span{font-size:10px;color:var(--muted)}
+.compare-table>div>b{font-size:11px;color:#363139}
+.compare-table>div>b:last-child{color:var(--brand-red)}
+.dashboard-alerts{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:4px}
+.dashboard-alerts>div{display:grid;gap:3px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#fafafb}
+.dashboard-alerts>div.attention{border-color:#eadadd;background:#fff8f8}
+.dashboard-alerts span{font-size:9px;color:var(--muted)}
+.dashboard-alerts b{font-size:19px;color:#34363b}
+.dashboard-alerts .attention b{color:var(--brand-red)}
+.dashboard-alerts small{font-size:8px;color:var(--subtle)}
+
+.history-card-clickable{position:relative;padding-right:150px!important}
+.history-open-button{position:absolute;right:18px;top:50%;transform:translateY(-50%)}
+.history-detail{display:grid;gap:14px}
+.history-detail-toolbar{display:flex;justify-content:space-between;gap:10px}
+.history-detail>.section-panel{margin-bottom:0}
+.history-detail-kpis{display:grid;grid-template-columns:repeat(4,1fr);margin-top:15px;border-top:1px solid var(--line)}
+.history-detail-kpis>div{display:grid;gap:3px;padding:14px 16px 0;border-right:1px solid var(--line)}
+.history-detail-kpis>div:last-child{border-right:0}
+.history-detail-kpis span{font-size:9px;color:var(--muted)}
+.history-detail-kpis strong{font-size:19px;color:#34363b}
+.history-detail-table{min-width:1180px}
+.history-detail-table .date-cell small{display:block;margin-top:2px;font-size:8px;color:var(--subtle)}
+.history-snapshot{max-width:none}
+
+@media(max-width:1050px){
+  .dashboard-plan-kpis{grid-template-columns:repeat(2,1fr)}
+  .dashboard-plan-kpis>div{border-bottom:1px solid var(--line)}
+  .dashboard-plan-kpis>div:nth-child(2n){border-right:0}
+  .dashboard-plan-kpis>div:last-child{grid-column:1/-1;border-bottom:0}
+  .dashboard-compare{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .dashboard-plan-kpis{grid-template-columns:1fr}
+  .dashboard-plan-kpis>div{border-right:0}
+  .dashboard-plan-kpis>div:last-child{grid-column:auto}
+  .dashboard-alerts{grid-template-columns:1fr}
+  .compare-head,.compare-table>div{grid-template-columns:1.2fr repeat(3,.7fr)}
+  .history-card-clickable{padding-right:18px!important;padding-bottom:58px!important}
+  .history-open-button{left:18px;right:auto;top:auto;bottom:14px;transform:none}
+  .history-detail-kpis{grid-template-columns:repeat(2,1fr)}
+  .history-detail-kpis>div:nth-child(2n){border-right:0}
+}
