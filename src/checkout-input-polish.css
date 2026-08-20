@@ -13,3 +13,10 @@
   padding:0 3px 0 7px!important;
   line-height:28px!important;
 }
+
+/* Compact the native up/down spinner without changing the input size. */
+.checkout-plan-input::-webkit-inner-spin-button,
+.checkout-plan-input::-webkit-outer-spin-button{
+  margin:0!important;
+  height:20px!important;
+}
