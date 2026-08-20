@@ -8,11 +8,13 @@ body.dashboard-history-open .workspace>main{display:none!important}
 .dashboard-planning-select{display:grid;gap:6px;min-width:330px;font-size:10px;font-weight:650;color:#615b64}
 .dashboard-planning-select select{height:38px;border:1px solid var(--line-strong);border-radius:7px;background:#fff;padding:0 10px;color:#2f3136;font-size:11px;outline:none}
 
+/* Per-day checkout override: preserve native spinner controls without clipping. */
 .checkout-plan-input{
-  width:62px!important;
-  min-width:62px!important;
-  height:30px!important;
-  padding:0 7px!important;
+  box-sizing:border-box!important;
+  width:70px!important;
+  min-width:70px!important;
+  height:32px!important;
+  padding:0 5px 0 9px!important;
   border:1px solid var(--line-strong)!important;
   border-radius:6px!important;
   background:#fff!important;
@@ -22,8 +24,34 @@ body.dashboard-history-open .workspace>main{display:none!important}
   text-align:center!important;
   outline:none!important;
   box-shadow:none!important;
+  overflow:visible!important;
 }
 .checkout-plan-input:focus{border-color:rgba(219,8,18,.5)!important;box-shadow:0 0 0 2px rgba(219,8,18,.06)!important}
+
+/* Give action description and decision badge a visible breathing space. */
+.planning-table .decision-line{display:flex!important;align-items:center!important;align-content:center!important;gap:7px!important;row-gap:6px!important;flex-wrap:wrap!important}
+.planning-table .suggestion-title{margin:0!important;display:inline-block!important}
+.planning-table .decision-status{margin:0!important;flex:0 0 auto!important}
+.planning-table .decision-actions{flex-basis:100%!important;margin-top:0!important}
+
+/* Decision-state background rule: pending yellow, accepted green, rejected red. */
+.planning-table tbody tr:has(.decision-status.pending){background:#fffaf0!important}
+.planning-table tbody tr:has(.decision-status.accepted){background:#f2faf4!important}
+.planning-table tbody tr:has(.decision-status.rejected){background:#fff3f3!important}
+.planning-table tbody tr:has(.decision-status.base){background:#fff!important}
+
+/* Keep decision badge colors aligned with the row treatment. */
+.planning-table .decision-status.pending{background:#fff0bd!important;color:#866600!important}
+.planning-table .decision-status.accepted{background:#e7f5eb!important;color:#26734a!important}
+.planning-table .decision-status.rejected{background:#fde7e7!important;color:#a53c3c!important}
+
+/* Backlog follows the decision state. Rejected must read as red. */
+.planning-table tbody tr:has(.decision-status.rejected) td.backlog-value,
+.planning-table tbody tr:has(.decision-status.rejected) td:last-child{color:#a53c3c!important;font-weight:800!important}
+.planning-table tbody tr:has(.decision-status.accepted) td.backlog-value,
+.planning-table tbody tr:has(.decision-status.accepted) td:last-child{color:#26734a!important;font-weight:800!important}
+.planning-table tbody tr:has(.decision-status.pending) td.backlog-value,
+.planning-table tbody tr:has(.decision-status.pending) td:last-child{color:#9a6d00!important;font-weight:800!important}
 
 /* Native tables also use the extra width instead of looking artificially compressed. */
 .planning-table,.history-detail>.table-panel{width:100%}
