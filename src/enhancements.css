@@ -1,5 +1,13 @@
 /* Forecast Planner — dashboard, detailed history and per-day checkout planning */
 
+/* Use the available workspace width consistently across the native pages. */
+.workspace>main{width:100%!important;max-width:none!important;margin:0!important;padding:30px 34px 48px!important}
+body.dashboard-history-open .workspace>main{display:none!important}
+.dashboard-history-page{width:100%;max-width:none;margin:0;padding:30px 34px 48px}
+.dashboard-history-header{align-items:flex-end}
+.dashboard-planning-select{display:grid;gap:6px;min-width:330px;font-size:10px;font-weight:650;color:#615b64}
+.dashboard-planning-select select{height:38px;border:1px solid var(--line-strong);border-radius:7px;background:#fff;padding:0 10px;color:#2f3136;font-size:11px;outline:none}
+
 .checkout-plan-input{
   width:62px!important;
   min-width:62px!important;
@@ -16,6 +24,12 @@
   box-shadow:none!important;
 }
 .checkout-plan-input:focus{border-color:rgba(219,8,18,.5)!important;box-shadow:0 0 0 2px rgba(219,8,18,.06)!important}
+
+/* Native tables also use the extra width instead of looking artificially compressed. */
+.planning-table,.history-detail>.table-panel{width:100%}
+.planning-table .table-wrap,.history-detail .table-wrap{width:100%;max-width:100%;overflow-x:auto}
+.planning-table table{width:100%;min-width:1180px}
+.history-detail-table{width:100%;min-width:1180px}
 
 .dashboard-last-plan{padding:0!important;overflow:hidden}
 .dashboard-last-plan>.section-heading{padding:18px 20px 14px}
@@ -43,7 +57,7 @@
 
 .history-card-clickable{position:relative;padding-right:150px!important}
 .history-open-button{position:absolute;right:18px;top:50%;transform:translateY(-50%)}
-.history-detail{display:grid;gap:14px}
+.history-detail{display:grid;gap:14px;width:100%}
 .history-detail-toolbar{display:flex;justify-content:space-between;gap:10px}
 .history-detail>.section-panel{margin-bottom:0}
 .history-detail-kpis{display:grid;grid-template-columns:repeat(4,1fr);margin-top:15px;border-top:1px solid var(--line)}
@@ -51,11 +65,16 @@
 .history-detail-kpis>div:last-child{border-right:0}
 .history-detail-kpis span{font-size:9px;color:var(--muted)}
 .history-detail-kpis strong{font-size:19px;color:#34363b}
-.history-detail-table{min-width:1180px}
 .history-detail-table .date-cell small{display:block;margin-top:2px;font-size:8px;color:var(--subtle)}
 .history-snapshot{max-width:none}
 
+/* Parameters and History should stretch with the same visual rhythm as Scenario Analysis. */
+.parameter-toolbar,.parameter-grid,.history-list{width:100%;max-width:none}
+
 @media(max-width:1050px){
+  .dashboard-history-page,.workspace>main{padding:24px 22px 40px!important}
+  .dashboard-history-header{align-items:flex-start;flex-direction:column}
+  .dashboard-planning-select{width:100%;min-width:0}
   .dashboard-plan-kpis{grid-template-columns:repeat(2,1fr)}
   .dashboard-plan-kpis>div{border-bottom:1px solid var(--line)}
   .dashboard-plan-kpis>div:nth-child(2n){border-right:0}
@@ -63,6 +82,7 @@
   .dashboard-compare{grid-template-columns:1fr}
 }
 @media(max-width:760px){
+  .dashboard-history-page,.workspace>main{padding:22px 16px 40px!important}
   .dashboard-plan-kpis{grid-template-columns:1fr}
   .dashboard-plan-kpis>div{border-right:0}
   .dashboard-plan-kpis>div:last-child{grid-column:auto}
