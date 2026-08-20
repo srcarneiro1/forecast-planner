@@ -1,15 +1,15 @@
 /* Fine adjustment for planned checkout editor. */
 .planning-table th:nth-child(8),
 .planning-table td:nth-child(8){
-  width:4.5%!important;
+  width:4.3%!important;
 }
 
 .checkout-plan-input{
-  width:60px!important;
-  min-width:60px!important;
-  max-width:60px!important;
-  height:32px!important;
-  min-height:32px!important;
-  padding:0 4px 0 8px!important;
-  line-height:32px!important;
+  width:55px!important;
+  min-width:55px!important;
+  max-width:55px!important;
+  height:28px!important;
+  min-height:28px!important;
+  padding:0 3px 0 7px!important;
+  line-height:28px!important;
 }
