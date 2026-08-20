@@ -63,6 +63,22 @@ export default function ScenarioAnalysisFeature(){
 
   useEffect(()=>{
     document.body.classList.toggle('scenario-analysis-open',open)
+    const navButtons=Array.from(document.querySelectorAll('.sidebar-nav button')) as HTMLButtonElement[]
+    if(open){
+      navButtons.forEach(button=>{
+        if(!button.matches('[data-scenario-nav="true"]')&&button.classList.contains('active')){
+          button.dataset.scenarioWasActive='true'
+          button.classList.remove('active')
+        }
+      })
+    }else{
+      navButtons.forEach(button=>{
+        if(button.dataset.scenarioWasActive==='true'){
+          button.classList.add('active')
+          delete button.dataset.scenarioWasActive
+        }
+      })
+    }
     return()=>document.body.classList.remove('scenario-analysis-open')
   },[open])
 
@@ -171,7 +187,7 @@ export default function ScenarioAnalysisFeature(){
 
   const navButton=navTarget?createPortal(
     <button data-scenario-nav="true" className={open?'active scenario-nav-button':'scenario-nav-button'} onClick={()=>setOpen(true)} title="Análise de cenário">
-      <span className="material-symbols-rounded material-icon" aria-hidden="true">difference</span>
+      <span className="material-symbols-rounded material-icon" aria-hidden="true">monitoring</span>
       <span>Análise de cenário</span>
     </button>,navTarget
   ):null
