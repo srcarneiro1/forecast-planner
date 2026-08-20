@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import ScenarioAnalysisFeature from './ScenarioAnalysisFeature'
 import DashboardSelectableFeature from './DashboardSelectableFeature'
+import CheckoutStepperFeature from './CheckoutStepperFeature'
 import './planning.css'
 import './brand.css'
 import './unilog.css'
@@ -16,5 +17,6 @@ createRoot(document.getElementById('root')!).render(
     <App />
     <ScenarioAnalysisFeature />
     <DashboardSelectableFeature />
+    <CheckoutStepperFeature />
   </StrictMode>,
 )
