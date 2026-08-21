@@ -61,8 +61,9 @@ export default function App(){
   const[profileMenuOpen,setProfileMenuOpen]=useState(false)
 
   const selectedDepositor=depositors.find(d=>d.id===selectedId)
-  const hasDepositor=Boolean(selectedDepositor??depositors[0])
-  const activeDepositor:Depositor=selectedDepositor??depositors[0]??fallbackDemo
+  const fallbackDepositor=depositors.find(d=>d.ativo)
+  const hasDepositor=Boolean(selectedDepositor??fallbackDepositor)
+  const activeDepositor:Depositor=selectedDepositor??fallbackDepositor??fallbackDemo
   const activeName=hasDepositor?activeDepositor.nome:'Nenhuma operação selecionada'
   const results=useMemo(()=>simulate(rows,activeDepositor,holidays,decisions,tariffs,checkoutOverrides),[rows,activeDepositor,holidays,decisions,tariffs,checkoutOverrides])
   const total=results.reduce((s,r)=>s+r.forecast,0)
@@ -124,7 +125,7 @@ export default function App(){
     ])
     if(p)setProfile(p as Profile)
     if(error)setDataMessage(error.message)
-    else{const numeric=['horas_trabalhadas_dia','capacidade_checkout_dia','horas_extra_max_dia_util','horas_operacao_extra_sabado','horas_operacao_extra_dom_feriado','pessoas_por_checkout','pessoas_separando','pessoas_embalando','pessoas_embalagem_caixa','pessoas_roteirizando','pessoas_ressuprindo','checkouts_atuais','checkouts_maximos','checkouts_minimos_dia_util','checkouts_maximos_fim_semana','hc_maximo','turnos_maximos'];const clean=(deps??[]).map((d:any)=>{const item:any={...d};numeric.forEach(k=>item[k]=Number(item[k]));const fallbackJornada=(item.jornada??'SEG a SEX') as JornadaAtiva;item.jornadas_ativas=Array.isArray(item.jornadas_ativas)&&item.jornadas_ativas.length?item.jornadas_ativas:[fallbackJornada];return item}) as DbDepositor[];setDepositors(clean);if(clean.length&&!selectedId)setSelectedId(clean[0].id)}
+    else{const numeric=['horas_trabalhadas_dia','capacidade_checkout_dia','horas_extra_max_dia_util','horas_operacao_extra_sabado','horas_operacao_extra_dom_feriado','pessoas_por_checkout','pessoas_separando','pessoas_embalando','pessoas_embalagem_caixa','pessoas_roteirizando','pessoas_ressuprindo','checkouts_atuais','checkouts_maximos','checkouts_minimos_dia_util','checkouts_maximos_fim_semana','hc_maximo','turnos_maximos'];const clean=(deps??[]).map((d:any)=>{const item:any={...d};numeric.forEach(k=>item[k]=Number(item[k]));const fallbackJornada=(item.jornada??'SEG a SEX') as JornadaAtiva;item.jornadas_ativas=Array.isArray(item.jornadas_ativas)&&item.jornadas_ativas.length?item.jornadas_ativas:[fallbackJornada];return item}) as DbDepositor[];setDepositors(clean);setSelectedId(current=>clean.some(d=>d.id===current&&d.ativo)?current:(clean.find(d=>d.ativo)?.id??''))}
     if(rateError)setDataMessage(rateError.message)
     else{const next={...emptyTariffs};(rateRows??[]).forEach((r:any)=>{const v=Number(r.valor_hora);if(r.tipo==='Dia útil')next.diaUtil=v;if(r.tipo==='Sábado')next.sabado=v;if(r.tipo==='Domingo/Feriado')next.domingoFeriado=v;if(r.tipo==='Noturno')next.noturno=v});setTariffs(next)}
     if(holidayError)setDataMessage(holidayError.message);else setHolidays(new Set((holidayRows??[]).map((r:any)=>String(r.data).slice(0,10))))
