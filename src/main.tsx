@@ -11,6 +11,7 @@ import './auth.css'
 import './brand-logo-final.css'
 import './parameters-polish.css'
 import './checkout-input-polish.css'
+import './layout-audit-fixes.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
