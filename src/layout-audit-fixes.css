@@ -31,8 +31,17 @@
   box-shadow:none!important;
 }
 
-/* Rail dimensions are explicit so icons cannot overlap labels or one another. */
+/* Desktop sidebar header: logo stays left, toggle is anchored to the far right. */
 @media (min-width:921px){
+  .shell:not(.sidebar-collapsed) .sidebar-head{
+    width:100%!important;
+    gap:18px!important;
+  }
+  .shell:not(.sidebar-collapsed) .sidebar-head .collapse-button{
+    margin-left:auto!important;
+    flex:0 0 34px!important;
+  }
+
   /* More breathing room between the compact logo and the expand/collapse control. */
   .sidebar-collapsed .sidebar-head{
     gap:16px!important;
