@@ -1,0 +1,90 @@
+/* Forecast Planner — audited layout hardening
+   Loaded last to neutralize legacy overlap without changing business rules. */
+
+/* Keep the viewport shell stable on desktop and mobile browser chrome. */
+.sidebar{
+  height:100vh;
+  height:100dvh;
+  min-height:0;
+  overflow:hidden;
+}
+
+/* Navigation owns vertical overflow so the brand/control and lower edge stay reachable. */
+.sidebar-nav{
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.22) transparent;
+}
+.sidebar-nav::-webkit-scrollbar{width:6px}
+.sidebar-nav::-webkit-scrollbar-track{background:transparent}
+.sidebar-nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.20);border-radius:999px}
+
+/* One deterministic focus treatment; avoids browser-specific double outlines. */
+.sidebar-nav button:focus{outline:none}
+.sidebar-nav button:focus-visible,
+.sidebar .icon-button:focus-visible,
+.sidebar .brand:focus-visible{
+  outline:2px solid rgba(255,255,255,.88)!important;
+  outline-offset:2px!important;
+  box-shadow:none!important;
+}
+
+/* Rail dimensions are explicit so icons cannot overlap labels or one another. */
+@media (min-width:921px){
+  .sidebar-collapsed .sidebar-nav{overflow-x:visible}
+  .sidebar-collapsed .sidebar-nav button{
+    flex:0 0 40px!important;
+    width:40px!important;
+    min-width:40px!important;
+    max-width:40px!important;
+    height:40px!important;
+    min-height:40px!important;
+    max-height:40px!important;
+  }
+  .sidebar-collapsed .sidebar-nav button>.material-icon{
+    position:static!important;
+    inset:auto!important;
+    margin:0!important;
+    transform:none!important;
+  }
+}
+
+/* Mobile drawer must always behave expanded, regardless of persisted desktop collapse state. */
+@media (max-width:920px){
+  .sidebar{
+    width:min(286px,86vw)!important;
+    max-width:86vw!important;
+    padding-bottom:max(16px,env(safe-area-inset-bottom));
+    overflow:hidden!important;
+  }
+  .sidebar-nav{
+    display:grid!important;
+    grid-auto-flow:row!important;
+    align-content:start!important;
+    width:100%!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+  .sidebar-nav button,
+  .sidebar-collapsed .sidebar-nav button{
+    display:flex!important;
+    width:100%!important;
+    min-width:0!important;
+    height:auto!important;
+    min-height:42px!important;
+    justify-content:flex-start!important;
+    padding:10px 12px!important;
+    gap:10px!important;
+  }
+  .sidebar-collapsed .sidebar-nav button>span:not(.material-icon){display:inline!important}
+  .sidebar-collapsed .sidebar-nav button>.material-icon{display:inline-flex!important}
+  .sidebar-head{flex:0 0 auto}
+}
+
+@media (max-width:500px){
+  .topbar-right{gap:8px}
+  .topbar-select{min-width:0;max-width:min(180px,52vw)}
+  .topbar-select select{width:100%;min-width:0;max-width:100%!important}
+}
