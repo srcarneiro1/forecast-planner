@@ -33,6 +33,12 @@
 
 /* Rail dimensions are explicit so icons cannot overlap labels or one another. */
 @media (min-width:921px){
+  /* More breathing room between the compact logo and the expand/collapse control. */
+  .sidebar-collapsed .sidebar-head{
+    gap:16px!important;
+    min-height:88px!important;
+    margin-bottom:20px!important;
+  }
   .sidebar-collapsed .sidebar-nav{overflow-x:visible}
   .sidebar-collapsed .sidebar-nav button{
     flex:0 0 40px!important;
