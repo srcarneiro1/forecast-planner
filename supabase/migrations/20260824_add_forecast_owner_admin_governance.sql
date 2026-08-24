@@ -143,9 +143,19 @@ begin
     values (p_target_id, 'ADMIN', (select auth.uid()), now())
     on conflict (user_id) do update
       set governance_role = 'ADMIN', updated_at = now();
+
+    -- Compatibilidade da UI legada: o App ainda usa profiles.perfil para
+    -- mostrar os controles de Parâmetros. A autorização real está em app_governance.
+    update public.profiles
+    set perfil = 'admin'
+    where id = p_target_id;
   else
     delete from public.app_governance
     where user_id = p_target_id and governance_role = 'ADMIN';
+
+    update public.profiles
+    set perfil = 'usuario'
+    where id = p_target_id;
   end if;
 
   insert into public.access_governance_audit(
@@ -164,6 +174,7 @@ $$;
 revoke all on function public.set_forecast_admin_role(uuid, boolean) from public, anon;
 grant execute on function public.set_forecast_admin_role(uuid, boolean) to authenticated;
 
+-- Provisiona o Owner sem hardcode de UUID gerado.
 insert into public.app_governance(user_id, governance_role, created_by)
 select p.id, 'OWNER', p.id
 from public.profiles p
@@ -172,6 +183,7 @@ where lower(u.email) = lower('filipecarneirodasilva@gmail.com')
   and p.ativo = true
 on conflict (user_id) do update set governance_role = 'OWNER', updated_at = now();
 
+-- Preserva administradores existentes como delegados.
 insert into public.app_governance(user_id, governance_role, created_by)
 select p.id, 'ADMIN', owner_row.user_id
 from public.profiles p
