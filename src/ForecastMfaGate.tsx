@@ -70,7 +70,14 @@ export default function ForecastMfaGate() {
   useEffect(() => {
     if (!supabase) return
     void resolveState()
-    const { data } = supabase.auth.onAuthStateChange(() => { void resolveState() })
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT') {
+        setMode('hidden')
+        setGovernanceRole('USER')
+        return
+      }
+      if (event === 'SIGNED_IN' || event === 'USER_UPDATED') void resolveState()
+    })
     return () => data.subscription.unsubscribe()
   }, [])
 
