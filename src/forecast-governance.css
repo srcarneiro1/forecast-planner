@@ -1,0 +1,17 @@
+.login-card.standalone .link-action{display:none!important}
+.forecast-governance-divider{margin-top:6px}
+.forecast-governance-nav .material-icon{font-size:19px!important}
+.forecast-governance-backdrop{position:fixed;inset:0;z-index:120;background:rgba(12,18,28,.48);display:grid;place-items:center;padding:24px}
+.forecast-governance-dialog{width:min(920px,100%);max-height:min(760px,calc(100vh - 48px));overflow:auto;background:#fff;border:1px solid #e4e7ec;border-radius:16px;box-shadow:0 24px 80px rgba(16,24,40,.22)}
+.forecast-governance-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:24px 24px 18px;border-bottom:1px solid #eceef2}
+.forecast-governance-head>div{display:grid;gap:4px}.forecast-governance-head>div>span{font-size:10px;font-weight:700;letter-spacing:.11em;color:#8b919b}.forecast-governance-head h2{margin:0;font-size:22px;color:#22252a}.forecast-governance-head p{margin:0;max-width:680px;font-size:12px;line-height:1.55;color:#6b7280}
+.forecast-governance-message{margin:18px 24px 0;padding:11px 13px;border-radius:9px;background:#f6f8fb;border:1px solid #e4e7ec;font-size:12px;color:#444b55}
+.forecast-governance-loading{padding:32px 24px;color:#69707b;font-size:13px}
+.forecast-access-list{display:grid;gap:10px;padding:20px 24px}
+.forecast-access-card{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;align-items:center;gap:12px;padding:13px 14px;border:1px solid #e7e9ed;border-radius:11px;background:#fff}
+.forecast-access-avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#f1f3f6;color:#393f47;font-weight:750;font-size:14px}
+.forecast-access-copy{display:grid;gap:2px;min-width:0}.forecast-access-copy strong{font-size:12px;color:#24272c}.forecast-access-copy span{font-size:11px;color:#606773;overflow:hidden;text-overflow:ellipsis}.forecast-access-copy small{font-size:10px;color:#9096a0}
+.forecast-role-badge{display:inline-flex;align-items:center;justify-content:center;min-width:66px;height:26px;padding:0 9px;border-radius:999px;font-size:10px;font-weight:750;letter-spacing:.03em}.forecast-role-badge.role-owner{background:#fff4df;color:#966600}.forecast-role-badge.role-admin{background:#eaf2ff;color:#315f9d}.forecast-role-badge.role-user{background:#f1f3f5;color:#606873}
+.forecast-access-action{min-width:118px;display:flex;justify-content:flex-end}.forecast-owner-lock{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:#747b85}.forecast-owner-lock .material-symbols-rounded{font-size:16px}
+.forecast-governance-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px 22px;border-top:1px solid #eceef2;color:#858b94;font-size:10px}
+@media(max-width:720px){.forecast-governance-backdrop{padding:0;align-items:end}.forecast-governance-dialog{max-height:92vh;border-radius:16px 16px 0 0}.forecast-governance-head{padding:20px 16px 15px}.forecast-access-list{padding:16px;gap:9px}.forecast-access-card{grid-template-columns:38px minmax(0,1fr) auto;gap:10px}.forecast-role-badge{grid-column:3}.forecast-access-action{grid-column:2/4;min-width:0;justify-content:flex-end}.forecast-governance-foot{padding:14px 16px 18px;align-items:flex-start;flex-direction:column}}
