@@ -4,6 +4,7 @@ import App from './App'
 import ScenarioAnalysisFeature from './ScenarioAnalysisFeature'
 import DashboardSelectableFeature from './DashboardSelectableFeature'
 import CheckoutStepperFeature from './CheckoutStepperFeature'
+import ForecastAccessGovernance from './ForecastAccessGovernance'
 import './planning.css'
 import './brand.css'
 import './unilog.css'
@@ -12,6 +13,7 @@ import './brand-logo-final.css'
 import './parameters-polish.css'
 import './checkout-input-polish.css'
 import './layout-audit-fixes.css'
+import './forecast-governance.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,5 +21,6 @@ createRoot(document.getElementById('root')!).render(
     <ScenarioAnalysisFeature />
     <DashboardSelectableFeature />
     <CheckoutStepperFeature />
+    <ForecastAccessGovernance />
   </StrictMode>,
 )
