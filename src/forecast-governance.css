@@ -1,5 +1,5 @@
 .login-card.standalone .link-action{display:none!important}
-.forecast-governance-divider{margin-top:6px}
+.forecast-governance-divider{display:none}
 .forecast-governance-nav .material-icon{font-size:19px!important}
 .forecast-governance-backdrop{position:fixed;inset:0;z-index:120;background:rgba(12,18,28,.48);display:grid;place-items:center;padding:24px}
 .forecast-governance-dialog{width:min(920px,100%);max-height:min(760px,calc(100vh - 48px));overflow:auto;background:#fff;border:1px solid #e4e7ec;border-radius:16px;box-shadow:0 24px 80px rgba(16,24,40,.22)}
