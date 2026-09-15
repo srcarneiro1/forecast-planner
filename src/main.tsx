@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
+import PlannerCopilotFeature from './PlannerCopilotFeature'
 import ScenarioAnalysisFeature from './ScenarioAnalysisFeature'
 import DashboardSelectableFeature from './DashboardSelectableFeature'
 import CheckoutStepperFeature from './CheckoutStepperFeature'
@@ -20,6 +21,7 @@ import './forecast-mfa.css'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
+    <PlannerCopilotFeature />
     <ScenarioAnalysisFeature />
     <DashboardSelectableFeature />
     <CheckoutStepperFeature />
