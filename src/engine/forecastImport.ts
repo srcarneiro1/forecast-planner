@@ -104,8 +104,7 @@ export async function parsePlanningForecastFile(file:File):Promise<ParsedPlannin
 
     if(!rows.length)continue
     const parsed:ParsedPlanningForecast={rows,sheet:sheetName,headerRow:headerIndex+1,rule:columns.rule,demandColumns:columns.demandColumns}
-    const sameLength=best&&parsed.rows.length===best.rows.length
-    const preferConsolidated=sameLength&&isConsolidatedSheet(parsed.sheet)&&!isConsolidatedSheet(best.sheet)
+    const preferConsolidated=best!==null&&parsed.rows.length===best.rows.length&&isConsolidatedSheet(parsed.sheet)&&!isConsolidatedSheet(best.sheet)
     if(!best||parsed.rows.length>best.rows.length||preferConsolidated)best=parsed
   }
 
