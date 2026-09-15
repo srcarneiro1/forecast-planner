@@ -66,6 +66,11 @@ function chooseColumns(header:unknown[]){
   return null
 }
 
+function isConsolidatedSheet(name:string){
+  const normalized=normalizePlanningHeader(name)
+  return normalized.includes('consolidado')||normalized.includes('consolidada')||normalized==='forecast'
+}
+
 export async function parsePlanningForecastFile(file:File):Promise<ParsedPlanningForecast>{
   const buffer=await file.arrayBuffer()
   const workbook=XLSX.read(buffer,{type:'array',cellDates:true})
@@ -99,7 +104,9 @@ export async function parsePlanningForecastFile(file:File):Promise<ParsedPlannin
 
     if(!rows.length)continue
     const parsed:ParsedPlanningForecast={rows,sheet:sheetName,headerRow:headerIndex+1,rule:columns.rule,demandColumns:columns.demandColumns}
-    if(!best||parsed.rows.length>best.rows.length)best=parsed
+    const sameLength=best&&parsed.rows.length===best.rows.length
+    const preferConsolidated=sameLength&&isConsolidatedSheet(parsed.sheet)&&!isConsolidatedSheet(best.sheet)
+    if(!best||parsed.rows.length>best.rows.length||preferConsolidated)best=parsed
   }
 
   if(!best)throw new Error('Não encontrei uma tabela diária válida. O arquivo precisa ter uma coluna Data e uma coluna de Forecast/Demanda do Dia.')
