@@ -2,6 +2,20 @@ import { simulate, type DayResult, type Decisions, type Depositor, type Forecast
 
 export type RecommendationKind='weekend'|'holiday'|'overtime'|'checkout'|'other'
 
+export type PlanningConstraints={
+  allowSaturday:boolean
+  allowSunday:boolean
+  allowHoliday:boolean
+  allowOvertime:boolean
+}
+
+export const defaultPlanningConstraints:PlanningConstraints={
+  allowSaturday:true,
+  allowSunday:true,
+  allowHoliday:true,
+  allowOvertime:true,
+}
+
 export type PlanningRecommendation={
   data:string
   tipoDia:string
@@ -28,6 +42,7 @@ export type PlanningSummary={
   weekendCount:number
   holidayCount:number
   overtimeCount:number
+  rejectedByConstraint:number
 }
 
 function actionKind(day:DayResult):RecommendationKind{
@@ -41,13 +56,36 @@ function actionKind(day:DayResult):RecommendationKind{
 function rejectAllSuggested(rows:ForecastRow[],p:Depositor,holidays:Set<string>,tariffs:Tariffs){
   const decisions:Decisions={}
   let result:DayResult[]=[]
-  for(let pass=0;pass<20;pass+=1){
+  for(let pass=0;pass<40;pass+=1){
     result=simulate(rows,p,holidays,decisions,tariffs)
     const pending=result.filter(day=>day.decisao==='pending'&&decisions[day.data]!=='rejected')
     if(!pending.length)break
     pending.forEach(day=>{decisions[day.data]='rejected'})
   }
   return result
+}
+
+function isBlocked(day:DayResult,constraints:PlanningConstraints){
+  if(day.tipoDia==='Sábado'&&!constraints.allowSaturday)return true
+  if(day.tipoDia==='Domingo'&&!constraints.allowSunday)return true
+  if(day.tipoDia==='Feriado'&&!constraints.allowHoliday)return true
+  if(day.acaoSugerida.startsWith('Atuar com +')&&!constraints.allowOvertime)return true
+  return false
+}
+
+function simulateWithConstraints(rows:ForecastRow[],p:Depositor,holidays:Set<string>,tariffs:Tariffs,manualDecisions:Decisions,constraints:PlanningConstraints){
+  const effective:Decisions={...manualDecisions}
+  let result:DayResult[]=[]
+  let rejectedByConstraint=0
+
+  for(let pass=0;pass<40;pass+=1){
+    result=simulate(rows,p,holidays,effective,tariffs)
+    const blocked=result.filter(day=>day.decisao==='pending'&&isBlocked(day,constraints)&&effective[day.data]!=='rejected')
+    if(!blocked.length)break
+    blocked.forEach(day=>{effective[day.data]='rejected';rejectedByConstraint+=1})
+  }
+
+  return{result,effective,rejectedByConstraint}
 }
 
 function rationale(day:DayResult){
@@ -62,8 +100,16 @@ function rationale(day:DayResult){
   return`Ação sugerida para atender ${need} pedidos com backlog projetado de ${backlog}.`
 }
 
-export function buildPlanningAdvice(rows:ForecastRow[],p:Depositor,holidays=new Set<string>(),tariffs:Tariffs,decisions:Decisions={}){
-  const projected=simulate(rows,p,holidays,decisions,tariffs)
+export function buildPlanningAdvice(
+  rows:ForecastRow[],
+  p:Depositor,
+  holidays=new Set<string>(),
+  tariffs:Tariffs,
+  decisions:Decisions={},
+  constraints:PlanningConstraints=defaultPlanningConstraints,
+){
+  const constrained=simulateWithConstraints(rows,p,holidays,tariffs,decisions,constraints)
+  const projected=constrained.result
   const base=rejectAllSuggested(rows,p,holidays,tariffs)
   const recommendations:PlanningRecommendation[]=projected
     .filter(day=>day.decisao==='pending')
@@ -94,7 +140,8 @@ export function buildPlanningAdvice(rows:ForecastRow[],p:Depositor,holidays=new 
     weekendCount:recommendations.filter(item=>item.kind==='weekend').length,
     holidayCount:recommendations.filter(item=>item.kind==='holiday').length,
     overtimeCount:recommendations.filter(item=>item.kind==='overtime').length,
+    rejectedByConstraint:constrained.rejectedByConstraint,
   }
 
-  return{days:projected,baseDays:base,recommendations,summary}
+  return{days:projected,baseDays:base,recommendations,summary,effectiveDecisions:constrained.effective}
 }
